@@ -45,33 +45,12 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             KMPCursoTheme {
-                Main()
-            }
-        }
-    }
-}
-
-@Composable
-fun Main() {
-    var isTextClicked by remember { mutableStateOf(false) } Scaffold { paddingValues -> // Use Scaffold for padding handling
-        Card(
-            modifier = Modifier
-                .padding(paddingValues) // Apply Scaffold padding
-                .fillMaxSize() // Make Card fill the screen
-                .clickable {
-                    isTextClicked = !isTextClicked
-                    Log.d("Click", "$isTextClicked")
-                },
-            shape = RoundedCornerShape(20),
-            elevation = CardDefaults.cardElevation(15.dp),
-            border = BorderStroke(1.dp, Color.Red)
-        ) {
-            Column(
-                modifier = Modifier.fillMaxSize(), // Make Column fill the Card
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                // ... Your existing Row content ...
+                Surface (
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    Main()
+                }
             }
         }
     }
@@ -80,61 +59,58 @@ fun Main() {
 @Composable
 fun Main() {
     var isTextClicked by remember { mutableStateOf(false) }
-    Scaffold { paddingValues ->
-        20.dp
-        Card(
-            modifier = Modifier
-                .padding(paddingValues) // Apply Scaffold padding
-                .fillMaxSize()
-                .clickable {
-                    isTextClicked = !isTextClicked
-                    Log.d("Click", "$isTextClicked")
-                }.wrapContentSize(),
-            shape = RoundedCornerShape(20),
-            elevation = CardDefaults.cardElevation(15.dp),
-            border = BorderStroke(1.dp, Color.Red)
+    Card(
+        modifier = Modifier
+            .wrapContentSize(Alignment.Center)
+            .clickable {
+                isTextClicked = !isTextClicked
+                Log.d("Click", "$isTextClicked")
+            }
+            .wrapContentSize(),
+        shape = RoundedCornerShape(20),
+        elevation = CardDefaults.cardElevation(15.dp),
+        border = BorderStroke(1.dp, Color.Red),
+    ) {
+        Column(
+            modifier = Modifier.wrapContentSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
             ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Image(
-                        painter = if (isTextClicked) painterResource(id = R.drawable.baseline_person_24) else painterResource(
-                            id = R.drawable.baseline_mouse_24
-                        ),
-                        contentDescription = "Perfil"
-                    )
-                    CustomText(
-                        modifier = Modifier
-                            .wrapContentSize()
-                            .background(Color.Gray),
-                        texto = if (isTextClicked) "Hola Matias" else "Hola",
-                        fontSize = 30.sp
-                    )
-                }
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Image(
-                        painter = if (isTextClicked) painterResource(id = R.drawable.baseline_person_24) else painterResource(
-                            id = R.drawable.baseline_mouse_24
-                        ),
-                        contentDescription = "Perfil"
-                    )
-                    CustomText(
-                        modifier = Modifier
-                            .wrapContentSize()
-                            .background(Color.Gray),
-                        texto = if (isTextClicked) "Hola Matias" else "Hola",
-                        fontSize = 30.sp
-                    )
-                }
+                Image(
+                    painter = if (isTextClicked) painterResource(id = R.drawable.baseline_person_24) else painterResource(
+                        id = R.drawable.baseline_mouse_24
+                    ),
+                    contentDescription = "Perfil"
+                )
+                CustomText(
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .background(Color.Gray),
+                    texto = if (isTextClicked) "Hola Matias" else "Hola",
+                    fontSize = 30.sp
+                )
+            }
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Image(
+                    painter = if (isTextClicked) painterResource(id = R.drawable.baseline_person_24) else painterResource(
+                        id = R.drawable.baseline_mouse_24
+                    ),
+                    contentDescription = "Perfil"
+                )
+                CustomText(
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .background(Color.Gray),
+                    texto = if (isTextClicked) "Hola Matias" else "Hola",
+                    fontSize = 30.sp
+                )
             }
         }
     }
